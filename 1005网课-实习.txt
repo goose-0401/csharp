@@ -1,0 +1,78 @@
+同学们，开始上课了。今天我们的实习内容是多态。
+大家通过观看慕课以及网络上的一些资源，充分理解多态的含义，完成实习作业。
+另外，资料中还涉及多态的扩展内容，希望大家也可以看看，预习预习。
+
+参考资料：
+1 慕课 
+c#程序设计 国家精品  北京大学 唐大仕
+https://www.icourse163.org/learn/PKU-1001663016?tid=1450229441#/learn/content?type=detail&id=1214383101&sm=1
+
+2 其他资料
+
+https://blog.csdn.net/huwei2003/article/details/18982039
+https://www.runoob.com/w3cnote/csharp-polymorphism2.html
+
+实习作业：
+
+改写我们ppt上的例子，基于多态机制实现 圆、圆柱、圆球、圆锥的面积和体积。
+
+
+附： 课件上的例子
+
+例3-9：编写一个程序，计算球，圆锥，圆柱的表面积和体积
+
+using System;
+namespace ConApp1
+{
+public class Circle
+	{
+	protected double radius;
+	public Circle(double r)	{radius=r;}
+	public double GetArea(){return Math.PI*radius*radius;}
+	}
+public class Sphere:Circle//球体类
+	{
+	public Sphere(double r):base(r){}
+	public double GetArea(){return (4*base.GetArea());}
+	public double GetVolumn()
+            {return (4*Math.PI*Math.Pow(radius,3)/3);}
+	}
+public class Cylinder:Circle//圆柱类
+	{
+	private double height;//添加高度字段
+	public Cylinder(double r,double h):base(r){height=h;}
+	public double GetArea()
+             {return (2*base.GetArea()+2*Math.PI*radius*height);}
+      public double GetVolumn(){return(Math.PI*radius*radius*height);}
+	}
+
+public class Cone:Circle//圆锥类
+{
+	private double height;//添加高度字段
+	public Cone(double r,double h):base(r){height=h;}
+	public double GetArea()
+	{return(Math.PI*radius*(radius+Math.Sqrt(height*height+radius*radius)));}
+	public double GetVolumn()
+	{return (Math.PI*radius*radius*height/3);}
+}
+
+
+
+public class Tester
+{
+	public static void Main()
+	{
+	Circle c1=new Circle(2);
+	Sphere s1=new Sphere(2);
+	Cylinder cd1=new Cylinder(2,10);
+	Cone cn1=new Cone(2,10);
+	Console.WriteLine("s1's serfacearea={0},
+           volumn={1}",s1.GetArea(),s1.GetVolumn());
+	Console.WriteLine("cd1's serfacearea={0},
+       volumn={1}",cd1.GetArea(),cd1.GetVolumn());
+	Console.WriteLine("cn1's serfacearea={0},
+       volumn={1}",cn1.GetArea(),cn1.GetVolumn());
+	Console.ReadLine();
+	}
+  }
+}
